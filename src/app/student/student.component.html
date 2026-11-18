@@ -1,0 +1,89 @@
+<h2 class="text-center bg-dark text-white py-2">STUDENT CRUD</h2>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <div class="card bg-light">
+                <div class="card-body" #stdForm>
+                    <h3 class="text-center text-primary">Student Form</h3>
+                    <div class="form-forup">
+                        <label for="fname">First Name :</label>
+                        <input type="text" class="form-control" #fname>
+                    </div>
+                    <div class="form-forup">
+                        <label for="lname">Last Name :</label>
+                        <input type="text" class="form-control" #lname>
+                    </div>
+                    <div class="form-forup">
+                        <label for="email">Email :</label>
+                        <input type="email" class="form-control" #email>
+                    </div>
+                    <div class="form-forup">
+                        <label for="contact">Contact :</label>
+                        <input type="tel" class="form-control" #contact>
+                    </div>
+                    <div class="form-group">
+                        <label for="isActive">Status :</label>
+                        <select class="form-control" #isActive>
+                            <option value="">Select Status</option>
+                            <option value="active">Active</option>
+                            <option value="inActive">In Active</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <button mat-raised-button (click)="onAddStd()" class="w-100" color="primary"
+                            *ngIf="!isInEditMode">
+                            Add Student
+                        </button>
+                        <button mat-raised-button (click)="onUpdateStd()" class="w-100" color="warn"
+                            *ngIf="isInEditMode">
+                            Update Student
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="bg-dark text-white">
+                        <th>Sr.No</th>
+                        <th>Full Name</th>
+                        <th>Email</th>
+                        <th>Contact</th>
+                        <th>Status</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody #stdTable class="bg-light">
+                    <tr *ngFor="let std of stdArr; let i = index">
+                        <td>{{i + 1}}</td>
+                        <td>{{std.fname}} {{std.lname}}</td>
+                        <td>{{std.email}}</td>
+                        <td>{{std.contact}}</td>
+                        <td>
+                            <input type="checkbox" [checked]="std.isActive" (click)="onUpdateCheckbox(std)">
+
+                            <span class="badge ml-2" [ngClass]="std.isActive ? 'badge-success' : 'badge-danger'">
+                                {{std.isActive ? 'Active' : 'In Active'}}
+                            </span>
+                        </td>
+                        <td>
+                            <button mat-mini-fab (click)="onEditStd(std)" color="primary">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </td>
+                        <td>
+                            <button mat-mini-fab (click)="onDeleteStd(std.stdId)" color="warn">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
